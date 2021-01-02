@@ -1,0 +1,24 @@
+{
+  "name": "Multi-author-blogsite-with-nodeJS-and-expressJS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaziMotiour/Multi-author-blogsite-with-nodeJS-and-expressJS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KaziMotiour/Multi-author-blogsite-with-nodeJS-and-expressJS/issues"
+  },
+  "homepage": "https://github.com/KaziMotiour/Multi-author-blogsite-with-nodeJS-and-expressJS#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
