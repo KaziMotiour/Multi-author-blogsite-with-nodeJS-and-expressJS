@@ -1,0 +1,41 @@
+<%- include('../../partials/header.ejs')%>
+
+<div class="container my-container">
+   <div class="row">
+       <div class="col-md-6 offset-md-3">
+           <div class="card card-body">
+           <h4>Login to your account</h4>
+           <form action="/auth/login" method="POST">
+
+            <div class="form-group">
+                <label for="email">Enter your email address</label>
+                <input type="email" name="email" id="email" class="form-control"/>
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Enter your password</label>
+                <input type="password" name="password" id="password" class="form-control"/>
+                
+            </div>
+            
+          
+            
+            <div class="form-group">
+                <input type="submit" value="singup" class="btn btn-primary"/>
+                
+            </div>
+            <a href="/auth/singup">Don't have any account</a>
+
+           </form>
+        </div>
+       </div>
+   </div>
+
+</div>
+
+
+<%- include('../../partials/footer.ejs')%>
+
+</body>
+</html>
