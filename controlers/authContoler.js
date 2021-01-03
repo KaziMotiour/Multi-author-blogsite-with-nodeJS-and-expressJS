@@ -2,6 +2,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const {validationResult} = require('express-validator')
+const session = require('express-session')
 
 exports.singupGetControler = (req, res, next) =>{
 
@@ -9,9 +10,9 @@ exports.singupGetControler = (req, res, next) =>{
 }
 
 exports.singupPostControler = async (req, res, next) =>{
+    
     const {username, email, password, password2} = req.body
     let error = validationResult(req)
-    
     
     if (error.isEmpty()){
     try{
@@ -24,12 +25,14 @@ exports.singupPostControler = async (req, res, next) =>{
 
         let createdUser = await user.save()
         console.log('user Loged in success fully');
-        console.log(createdUser);
+        res.redirect('/auth/login')
     }catch(e){
         console.log(e);
         next(e)
     }
+
     return res.render('pages/auth/singup',{title:"Create a new account", error:{}, value:{}})
+    
     }else{
         const formatter = (error) => error.msg 
         let errors = error.formatWith(formatter).mapped()
@@ -41,30 +44,33 @@ exports.singupPostControler = async (req, res, next) =>{
 }
 
 exports.loginGetControler = (req, res, next) =>{
-   
+
+    console.log(req.session.isLoggedIn, req.session.user);
     res.render('pages/auth/login',{title:"Login to your account", value:{}})
 
 }
 
 exports.loginPostControler =async (req, res, next) =>{
     const {email, password} = req.body
-
     try{
 
         let userEmail = await User.findOne({email})
         if(!userEmail){
-            return res.render('pages/auth/login',{title:"Login to your account", value:{error:"Invalid username or password"}})
+            return res.render('pages/auth/login',{title:"Login to your account", value:{error:"Invalid username or password"}, isLoggedIn:false})
         }
         let passMatch = await bcrypt.compare(password, userEmail.password)
-        console.log(passMatch, "promise");
         if (!passMatch){
             return res.render('pages/auth/login',{title:"Login to your account", value:{error:"Invalid username or password"}})
         }
 
         console.log("success fully loged in");
-       return res.render('pages/auth/login',{title:"Login to your account", value:{}})
-
-
+        req.session.isLoggedIn = true
+        req.session.user = userEmail
+        req.session.save(err=>{
+            console.log(err);
+            return next(err)
+        })
+        return res.redirect('/')
     }catch(e){
         console.log(e);
         next(e)
@@ -76,5 +82,13 @@ exports.loginPostControler =async (req, res, next) =>{
 }
 
 exports.logout = (req, res,  next) =>{
+
+    req.session.destroy(err =>{
+        if(err){
+            console.log(err);
+            next(err)
+        }
+        return res.redirect('/')
+    })
 
 }
