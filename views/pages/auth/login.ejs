@@ -5,6 +5,7 @@
        <div class="col-md-6 offset-md-3">
            <div class="card card-body">
            <h4>Login to your account</h4>
+           <h5 style="color: tomato;"><%= value.error && value.error %></h5>
            <form action="/auth/login" method="POST">
 
             <div class="form-group">

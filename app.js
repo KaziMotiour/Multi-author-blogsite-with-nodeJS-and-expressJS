@@ -9,7 +9,7 @@ const port = process.env.port || 5000
 const authRoute = require('./routes/auth');
 
 // Import Validate route
-const validatorRouter = require('./playground/validator') // todo should be romove
+
 // set up view engine
 app.set('view engine', 'ejs')
 app.set('views','views')
@@ -25,7 +25,7 @@ app.use(middleware)
 
 
 app.use('/auth', authRoute)
-app.use('/playground', validatorRouter) // todo should be romove
+
 
 app.get('/', (req, res)=>{
     res.render('pages/auth/singup',{title:"Create a new account"})
