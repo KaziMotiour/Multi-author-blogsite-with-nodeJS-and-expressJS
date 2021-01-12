@@ -12,23 +12,24 @@ const profileSchema = new Schema({
         type:String,
         required:true,
         trim:true,
-        maxlength:30,
+        maxlength:50,
     },
     title:{
         type:String,
         trim:true,
         maxlength:100,
     },
-    title:{
+    bio:{
         type:String,
         trim:true,
         maxlength:500,
     },
-    profilePic:String,
+    profilepics:String,
+    
     links:{
         website:String,
         facebook:String,
-        instagram:String,
+        twitter:String,
         github:String,
     },
     post:[

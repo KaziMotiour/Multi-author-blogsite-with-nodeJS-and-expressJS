@@ -19,7 +19,12 @@ const userSchema = new Schema({
     profile:{
         type:Schema.Types.ObjectId,
         ref:'Profile'
-    }
+    },
+    profilepics :{
+        type:String,
+        default:'/uploads/default.jpg' 
+    } 
+
     
 },{
     timestamps:true

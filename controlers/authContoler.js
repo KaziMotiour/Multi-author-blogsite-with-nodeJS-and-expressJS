@@ -45,7 +45,6 @@ exports.singupPostControler = async (req, res, next) =>{
 
 exports.loginGetControler = (req, res, next) =>{
 
-    console.log(req.session.isLoggedIn, req.session.user);
     res.render('pages/auth/login',{title:"Login to your account", value:{}})
 
 }
@@ -85,10 +84,10 @@ exports.logout = (req, res,  next) =>{
 
     req.session.destroy(err =>{
         if(err){
-            console.log(err);
+            console.log(err)
             next(err)
         }
-        return res.redirect('/')
+        return res.redirect('/auth/login')
     })
 
 }
