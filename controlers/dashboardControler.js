@@ -100,10 +100,8 @@ exports.editProfilePostControler = async (req, res, next) =>{
 
     let {name, title, bio, website, facebook, twitter, github} = req.body
 
-    if(!error.isEmpty()){
-        
-        res.render('pages/dashboard/edit-profile', {title:'create your profile', error:errors,
-        
+    if(!error.isEmpty()){   
+        res.render('pages/dashboard/edit-profile', {title:'create your profile', error:errors,     
         profile:{
             name, title, bio,
             links:{
@@ -111,11 +109,34 @@ exports.editProfilePostControler = async (req, res, next) =>{
                 facebook,
                 twitter,
                 github ,
-            },
-        
+            },  
         }
         })
     }
+
+
+    try{
+        const profile = await Profile.findOneAndUpdate(
+            {user:req.user._id},
+            {$set:{
+                name, title, bio,
+                links:{
+                    website: website || '',
+                    facebook: facebook || '',
+                    twitter: twitter || '',
+                    github: github || '',
+                },  
+            }}
+            )
+        res.render('pages/dashboard/dashboard', {title:'edit your profile', profile:profile, error:{}})
+
+
+    }catch(e){
+
+        next(e)
+    }
+
+    
 
 
     next()
